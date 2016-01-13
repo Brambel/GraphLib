@@ -100,5 +100,9 @@ public class DirectedGraph extends Graph {
 		}while(!st.isEmpty());
 		return temp;
 	}
+	@Override
+	public Vector<Node<?>> getNodes() {
+		return new Vector<Node<?>>(graph.keySet());
+	};
 
 }
