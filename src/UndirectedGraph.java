@@ -1,10 +1,12 @@
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 public class UndirectedGraph extends Graph {
 
-	//Arrays<Arrays<Node<?>>> graph = new Array<>();
+	List<List<Integer>> graph = new Vector<>();
+	List<Node<?>> nodes = new Vector<>();
+	
 	@Override
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		// TODO Auto-generated method stub

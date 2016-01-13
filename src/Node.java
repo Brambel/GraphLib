@@ -5,6 +5,10 @@ public class Node<Type> {
 	private Boolean used;
 	private int edges;
 	
+	public Node(Type value){
+		this.value = value;
+		}
+	
 	public Type getValue() {
 		return value;
 	}
@@ -30,9 +34,8 @@ public class Node<Type> {
 		edges=i;
 	}
 	public Node<Type> copy(){
-		Node<Type> temp = new Node<>();
+		Node<Type> temp = new Node<>(value);
 		temp.setUsed(used);
-		temp.setValue(value);
 		temp.setEdge(edges);
 		return temp;
 	}
