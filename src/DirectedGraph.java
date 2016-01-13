@@ -77,6 +77,9 @@ public class DirectedGraph extends Graph {
 				}
 			}
 		}while(!st.isEmpty());
+		for(Node<?> n : g.getNodes()){
+			n.setUsed(false);
+		}
 		return temp;
 	}
 
@@ -98,6 +101,9 @@ public class DirectedGraph extends Graph {
 				}
 			}
 		}while(!st.isEmpty());
+		for(Node<?> n : g.getNodes()){
+			n.setUsed(false);
+		}
 		return temp;
 	}
 	@Override
