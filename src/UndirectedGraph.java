@@ -41,4 +41,10 @@ public class UndirectedGraph extends Graph {
 		return null;
 	}
 
+	@Override
+	public Vector<Node<?>> getNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
