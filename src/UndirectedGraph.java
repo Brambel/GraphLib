@@ -2,7 +2,7 @@
 import java.util.List;
 import java.util.Vector;
 
-public class UndirectedGraph extends Graph {
+public class UndirectedGraph implements Graph {
 
 	List<List<Integer>> graph = new Vector<>();
 	List<Node<?>> nodes = new Vector<>();

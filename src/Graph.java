@@ -1,7 +1,7 @@
 import java.util.Vector;
 
 
-public abstract class Graph {
+public interface Graph {
 	
 	public abstract boolean adjacent(Node<?> from, Node<?> to);
 	public abstract Vector<Node<?>> neighbors(Node<?> n);
