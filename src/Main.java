@@ -11,9 +11,8 @@ public class Main {
 			nodes.add(new Node<Integer>(i));
 			graph.addEdge(nodes.get(nodes.size()-1),nodes.get(0));
 		}
-		for(Node<?> n : graph.getNodes()){
-			System.out.println(n.toString());
-		}
+		
+		System.out.println(graph.toString());
 		//test traversing and printing graph
 	}
 

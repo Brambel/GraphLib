@@ -10,4 +10,5 @@ public interface Graph {
 	public abstract Graph dfs(Graph g, Node<?> head);
 	public abstract Graph bfs(Graph g, Node<?> head);
 	public abstract Vector<Node<?>> getNodes();
+	public abstract String toString();
 }

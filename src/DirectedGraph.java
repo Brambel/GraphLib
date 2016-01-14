@@ -12,7 +12,7 @@ public class DirectedGraph implements Graph {
 	public DirectedGraph(){
 		graph = new HashMap<>();
 	}
-	@Override
+
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){
@@ -21,7 +21,7 @@ public class DirectedGraph implements Graph {
 		}
 		return false;
 	}
-	@Override
+
 	public Vector<Node<?>> neighbors(Node<?> n) {
 		if(graph.containsKey(n)){
 			return graph.get(n);
@@ -29,7 +29,7 @@ public class DirectedGraph implements Graph {
 		return null;
 	}
 
-	@Override
+
 	public void addEdge(Node<?> from, Node<?> to) {
 		if(!graph.containsKey(from)){	
 			graph.put(from, new Vector<Node<?>>());
@@ -44,7 +44,7 @@ public class DirectedGraph implements Graph {
 
 	}
 
-	@Override
+
 	public void removeEdge(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){
@@ -58,7 +58,7 @@ public class DirectedGraph implements Graph {
 
 	}
 
-	@Override
+
 	public Graph dfs(Graph g, Node<?> head) {
 		Graph temp = new DirectedGraph();
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
@@ -82,7 +82,7 @@ public class DirectedGraph implements Graph {
 		return temp;
 	}
 
-	@Override
+
 	public Graph bfs(Graph g, Node<?> head) {
 		Graph temp = new DirectedGraph();
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
@@ -105,9 +105,17 @@ public class DirectedGraph implements Graph {
 		}
 		return temp;
 	}
-	@Override
+
 	public Vector<Node<?>> getNodes() {
 		return new Vector<Node<?>>(graph.keySet());
 	};
+	
+	public String toString(){
+		String temp="";
+		for(Node<?> n : graph.keySet()){
+			temp+=n.toString()+"\r";
+		}
+		return temp;
+	}
 
 }
