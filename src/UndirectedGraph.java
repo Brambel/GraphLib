@@ -20,9 +20,8 @@ public class UndirectedGraph extends Graph {
 	}
 
 	@Override
-	public boolean addEdge(Node<?> from, Node<?> to) {
+	public void addEdge(Node<?> from, Node<?> to) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

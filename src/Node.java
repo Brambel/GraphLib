@@ -39,6 +39,9 @@ public class Node<Type> {
 		temp.setEdge(edges);
 		return temp;
 	}
+	public String toString(){
+		return "Edges: "+edges+", Value: "+value+", Used: "+used;
+	}
 	
 	
 }

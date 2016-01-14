@@ -30,18 +30,17 @@ public class DirectedGraph extends Graph {
 	}
 
 	@Override
-	public boolean addEdge(Node<?> from, Node<?> to) {
-		if(!graph.containsKey(from)){
-			if(!graph.containsKey(to)){
-				graph.put(to, new Vector<Node<?>>());
-			}
-			if(!graph.get(from).contains(to)){
-				graph.get(from).add(to);
-				to.addEdge();
-			}
-			return true;
+	public void addEdge(Node<?> from, Node<?> to) {
+		if(!graph.containsKey(from)){	
+			graph.put(from, new Vector<Node<?>>());
 		}
-		return false;
+		if(!graph.containsKey(to)){
+			graph.put(to, new Vector<Node<?>>());
+		}
+		if(!graph.get(from).contains(to)){
+			graph.get(from).add(to);
+			to.addEdge();
+		}
 
 	}
 
