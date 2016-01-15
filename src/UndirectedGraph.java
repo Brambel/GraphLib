@@ -91,7 +91,14 @@ public class UndirectedGraph implements Graph {
 	}
 
 	public Vector<Node<?>> getNodes() {
-		return new Vector<Node<?>>(nodes);
+		Vector<Node<?>> temp = new Vector<>();
+		for(Node<?> n : nodes){
+			if(n.getEdges()>0){
+				temp.add(n);
+			}
+		}
+		
+		return temp;
 	}
 	public String toString(){
 		String temp="";
