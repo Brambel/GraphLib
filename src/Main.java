@@ -15,14 +15,16 @@ public class Main {
 		System.out.println(graph.toString());
 		
 		Vector<Node<?>> nodes2 = new Vector<>();
-		nodes2.add(new Node<Integer>(10));
+		Node<Integer> nexus = new Node<>(10);
+		nodes2.add(nexus);
 		Graph graph2 = new UndirectedGraph();
 		for(int i=0;i<10;++i){
 			nodes2.add(new Node<Integer>(i));
-			graph.addEdge(nodes2.get(nodes2.size()-1),nodes2.get(0));
+			graph2.addEdge(nodes2.get(nodes2.size()-1),nodes2.get(0));
 		}
 		
 		System.out.println(graph2.toString());
+		System.out.println("nexus has : "+graph2.neighbors(nexus).size()+" connections");
 		//test traversing and printing graph
 	}
 

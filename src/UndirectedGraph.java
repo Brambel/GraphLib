@@ -24,10 +24,15 @@ public class UndirectedGraph implements Graph {
 		return false;
 	}
 
-	@Override
 	public Vector<Node<?>> neighbors(Node<?> n) {
-		// TODO Auto-generated method stub
-		return null;
+		int index = nodes.indexOf(n);
+		Vector<Node<?>> temp = new Vector<>();
+		for(int i =0;i<nodes.size();++i){
+			if(graph.get(index).get(i).val==1){
+				temp.addElement(nodes.get(i));
+			}
+		}	
+		return temp;
 	}
 
 
@@ -63,29 +68,37 @@ public class UndirectedGraph implements Graph {
 			n.add(new data(0));//add a zero to the end of each list in the graph
 		}
 	}
-
-	@Override
+	
 	public void removeEdge(Node<?> from, Node<?> to) {
-		// TODO Auto-generated method stub
-
+		int a = nodes.indexOf(from);
+		int b = nodes.indexOf(to);
+		if(graph.get(a).get(b).val!=0){
+			graph.get(a).get(b).val=0;
+			graph.get(b).get(a).val=0;
+			from.decEdge();
+			to.decEdge();
+		}
 	}
 
-	@Override
 	public Graph dfs(Graph g, Node<?> head) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Graph bfs(Graph g, Node<?> head) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Vector<Node<?>> getNodes() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector<Node<?>>(nodes);
+	}
+	public String toString(){
+		String temp="";
+		for(Node<?> n : nodes){
+			temp+=n.toString()+"\r";
+		}
+		return temp;
 	}
 
 }
