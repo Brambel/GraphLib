@@ -4,12 +4,23 @@ import java.util.Vector;
 
 public class UndirectedGraph implements Graph {
 
-	List<List<Integer>> graph = new Vector<>();
+	List<List<data>> graph = new Vector<>();
 	List<Node<?>> nodes = new Vector<>();
 	
-	@Override
+	//private inner class to hold the an int since Integer is bullshit
+	private class data{
+		public int val;
+		data(int x){
+			val=x;
+		}
+	}
+
 	public boolean adjacent(Node<?> from, Node<?> to) {
-		// TODO Auto-generated method stub
+		if(nodes.contains(from)&&nodes.contains(to)){
+			if(graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val==1){
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -19,9 +30,38 @@ public class UndirectedGraph implements Graph {
 		return null;
 	}
 
-	@Override
+
 	public void addEdge(Node<?> from, Node<?> to) {
-		// TODO Auto-generated method stub
+		if(!nodes.contains(from)){
+			nodes.add(from);
+			this.expand();
+		}
+		if(!nodes.contains(to)){
+			nodes.add(to);
+			this.expand();
+		}
+		int a = nodes.indexOf(to);
+		int b = nodes.indexOf(from);
+		
+		
+		if(graph.get(a).get(b)==null ||graph.get(a).get(b).val==0){
+			to.addEdge();
+			from.addEdge();
+		}
+		graph.get(a).get(b).val=1;
+		graph.get(b).get(a).val=1;
+	}
+
+	private void expand() {
+		int size = nodes.size()-1;//size of graph edges before node was added
+		List<data> temp = new Vector<>();
+		for(int i=0;i<size;++i){
+			temp.add(new data(0));
+		}
+		graph.add(temp); //this tacks the new vector to the end already full of zeros
+		for(List<data> n : graph){
+			n.add(new data(0));//add a zero to the end of each list in the graph
+		}
 	}
 
 	@Override
