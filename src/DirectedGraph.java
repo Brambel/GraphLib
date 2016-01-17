@@ -12,6 +12,14 @@ public class DirectedGraph implements Graph {
 	public DirectedGraph(){
 		graph = new HashMap<>();
 	}
+	
+	private class noWork implements Work{
+
+		public void doWork() {
+			// empty to be used for default			
+		}
+		
+	}
 
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
