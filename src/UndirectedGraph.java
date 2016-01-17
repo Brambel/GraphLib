@@ -7,14 +7,23 @@ public class UndirectedGraph implements Graph {
 	List<List<data>> graph = new Vector<>();
 	List<Node<?>> nodes = new Vector<>();
 	
-	//private inner class to hold the an int since Integer is bullshit
+	//private inner class to hold an int so we don't have to use the immutable Integer
 	private class data{
 		public int val;
 		data(int x){
 			val=x;
 		}
 	}
+	
+	private class noWork implements Work{
 
+		public Node<?> doWork(Node<?> n) {
+			// empty to be used for default
+			return n;
+		}
+		
+	}
+	
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(nodes.contains(from)&&nodes.contains(to)){
 			if(graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val==1){

@@ -15,8 +15,9 @@ public class DirectedGraph implements Graph {
 	
 	private class noWork implements Work{
 
-		public void doWork() {
-			// empty to be used for default			
+		public Node<?> doWork(Node<?> n) {
+			// empty to be used for default
+			return n;
 		}
 		
 	}

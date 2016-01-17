@@ -1,5 +1,5 @@
 
 public interface Work {
 
-	public void doWork();
+	public Node<?> doWork(Node<?> n);
 }
