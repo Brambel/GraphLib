@@ -15,15 +15,6 @@ public class UndirectedGraph implements Graph {
 		}
 	}
 	
-	private class noWork implements Work{
-
-		public Node<?> doWork(Node<?> n) {
-			// empty to be used for default
-			return n;
-		}
-		
-	}
-	
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(nodes.contains(from)&&nodes.contains(to)){
 			if(graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val==1){

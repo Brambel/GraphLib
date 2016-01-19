@@ -7,6 +7,8 @@ public class Node<Type> {
 	
 	public Node(Type value){
 		this.value = value;
+		used = false;
+		edges = 0;
 		}
 	
 	public Type getValue() {
