@@ -62,13 +62,13 @@ public class DirectedGraph implements Graph {
 		st.push(head);			//push head to stack
 		do{	
 			current = st.pop();
+			Node<?> currentCopy = current.copy();
 			for(Node<?> n : g.neighbors(current)){			//go through all of currents connected nodes
 				if(!n.isUsed()){							//if we've not used it yet
-					temp.addEdge(current.copy(), n.copy());	//add it to the return graph
+					temp.addEdge(currentCopy, n.copy());	//add it to the return graph
 					st.push(n);								//add it to queue
 					current.setUsed(true);					//mark as used
 				}
-				
 			}
 			current = st.pop();		//get new current
 		}while(!st.isEmpty());
@@ -113,18 +113,43 @@ public class DirectedGraph implements Graph {
 		Node<?> current;
 		st.push(head);
 		do{
-			current = st.pop();
+			current = st.removeLast();
 			for(Node<?> n : g.neighbors(current)){
-				temp.addEdge(current.copy(), n.copy());
-				st.push(n);
-				current.setUsed(true);
-				current=st.getLast();
-				if(current.isUsed()){
-					//add operations on nodes here
-					st.removeLast();
+				if(!n.isUsed()){
+					temp.addEdge(current.copy(), n.copy());
+					st.push(n);
+					current.setUsed(true);
 				}
 			}
 		}while(!st.isEmpty());
+		for(Node<?> n : g.getNodes()){
+			n.setUsed(false);
+		}
+		return temp;
+	}
+	
+	public Graph bfs(Graph g, Node<?> head, Work work) {
+		Graph temp = new DirectedGraph();
+		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
+		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>();
+		Node<?> current;
+		Node<?> currentCopy;
+		st.push(head);
+		workSt.push(head.copy());
+		do{
+			current=st.removeLast();
+			currentCopy = work.doWork(workSt.removeLast());
+			
+			for(Node<?> n : g.neighbors(current)){
+				if(!n.isUsed()){
+					workSt.push(n.copy());
+					temp.addEdge(currentCopy, workSt.getFirst());
+					st.push(n);
+					current.setUsed(true);
+				}
+			}
+		}while(!st.isEmpty());
+		
 		for(Node<?> n : g.getNodes()){
 			n.setUsed(false);
 		}
