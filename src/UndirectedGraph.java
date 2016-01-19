@@ -48,11 +48,6 @@ public class UndirectedGraph implements Graph {
 		int a = nodes.indexOf(to);
 		int b = nodes.indexOf(from);
 		
-		
-		if(graph.get(a).get(b)==null ||graph.get(a).get(b).val==0){
-			to.addEdge();
-			from.addEdge();
-		}
 		graph.get(a).get(b).val=1;
 		graph.get(b).get(a).val=1;
 	}
@@ -75,8 +70,6 @@ public class UndirectedGraph implements Graph {
 		if(graph.get(a).get(b).val!=0){
 			graph.get(a).get(b).val=0;
 			graph.get(b).get(a).val=0;
-			from.decEdge();
-			to.decEdge();
 		}
 	}
 
@@ -90,15 +83,8 @@ public class UndirectedGraph implements Graph {
 		return null;
 	}
 
-	public Vector<Node<?>> getNodes() {
-		Vector<Node<?>> temp = new Vector<>();
-		for(Node<?> n : nodes){
-			if(n.getEdges()>0){
-				temp.add(n);
-			}
-		}
-		
-		return temp;
+	public Vector<Node<?>> getNodes() {	
+		return (Vector<Node<?>>) nodes;
 	}
 	public String toString(){
 		String temp="";

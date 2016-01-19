@@ -40,7 +40,6 @@ public class DirectedGraph implements Graph {
 		}
 		if(!graph.get(from).contains(to)){
 			graph.get(from).add(to);
-			to.addEdge();
 		}
 
 	}
@@ -50,10 +49,6 @@ public class DirectedGraph implements Graph {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){
 				graph.get(from).remove(to);
-				to.decEdge();
-				if(to.getEdges()==0){
-					graph.remove(to);
-				}
 			}
 		}
 
@@ -87,10 +82,10 @@ public class DirectedGraph implements Graph {
 		Graph temp = new DirectedGraph();
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
 		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>();
-		Node<?> current = head;
-		Node<?> currentCopy = head.copy();
-		st.push(current);
-		workSt.push(currentCopy);
+		Node<?> current;
+		Node<?> currentCopy;
+		st.push(head);
+		workSt.push(head.copy());
 		do{
 			current=st.pop();
 			currentCopy = work.doWork(workSt.pop());
@@ -115,9 +110,10 @@ public class DirectedGraph implements Graph {
 	public Graph bfs(Graph g, Node<?> head) {
 		Graph temp = new DirectedGraph();
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Node<?> current = head;
+		Node<?> current;
+		st.push(head);
 		do{
-			st.push(current);
+			current = st.pop();
 			for(Node<?> n : g.neighbors(current)){
 				temp.addEdge(current.copy(), n.copy());
 				st.push(n);
