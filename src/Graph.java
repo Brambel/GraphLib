@@ -39,7 +39,7 @@ public interface Graph {
 				if(!n.isUsed()){								//if we've not used it yet
 					current.setUsed(true);							//mark as used
 					st.push(n);									//add it to queue
-					workSt.push(n.copy());
+					workSt.push(work.doWork(n.copy()));
 					temp.addEdge(currentCopy, workSt.getFirst());//add it to the return graph
 					n.setUsed(true);
 					
@@ -79,7 +79,7 @@ public interface Graph {
 				if(!n.isUsed()){
 					current.setUsed(true);
 					st.push(n);								
-					workSt.push(n.copy());
+					workSt.push(work.doWork(n.copy()));
 					temp.addEdge(currentCopy, workSt.getFirst());
 					n.setUsed(true);
 					
@@ -94,11 +94,6 @@ public interface Graph {
 	public Vector<Node<?>> getNodes();
 	public String toString();
 	
-	 class noWork implements Work{ //private inner class to facilitate overload of dfs and bfs
-		 
-		public Node<?> doWork(Node<?> n) {
-			return n;
-		}
-		
+	 class noWork implements Work{ //private inner class to facilitate overload of dfs and bfs		
 	}
 }

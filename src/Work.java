@@ -1,5 +1,8 @@
 
 public interface Work {
 
-	public Node<?> doWork(Node<?> n);
+	public default Node<?> doWork(Node<?> n){
+		return n;
+	}
+
 }

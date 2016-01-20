@@ -5,11 +5,9 @@ import org.junit.Test;
 public class Tests {
 
 	private class work implements Work{
-
 		@Override
-		public Node<?> doWork(Node<?> n) {
-			System.out.println(n.getValue());
-			return n;
+		public Node<?> doWork(Node<?> n){
+			return new Node<Integer>((int)n.getValue()+5);
 		}
 		
 	}
@@ -17,8 +15,8 @@ public class Tests {
 	@Test
 	public void directedTest() {
 		
-		Vector<Node<?>> nodes = new Vector<>();
-		nodes.add(new Node<Integer>(10));
+		Vector<Node<Integer>> nodes = new Vector<>();
+		nodes.add(new Node<>(10));
 		Graph graph = new DirectedGraph();
 		for(int i=0;i<10;++i){
 			nodes.add(new Node<Integer>(i));
@@ -52,11 +50,14 @@ public class Tests {
 		assertEquals("dfs subgraph nodes (head = 1): ",0,dfs.getNodes().size());
 		assertEquals("bfs subgraph nodes (head = 1): ",0,bfs.getNodes().size());
 		
-		System.out.println("\ndirected");
-		System.out.println("printing dfs nodes");
-		graph.dfs(graph, nodes.get(1), new work());
-		System.out.println("printing bfs nodes");
-		graph.bfs(graph, nodes.get(0), new work());
+		dfs = graph.dfs(graph, nodes.get(1), new work());
+		for(int i=5;i<16;++i){
+			assertTrue("bfs contains node of value "+i+": ",bfs.findMatch(new Node<Integer>(i))==null);//graph should be empty
+		}
+		bfs = graph.bfs(graph, nodes.get(0), new work());
+		for(int i=5;i<16;++i){
+			assertTrue("bfs contains node of value "+i+": ",bfs.findMatch(new Node<Integer>(i))!=null);
+		}
 		
 	}
 
@@ -97,11 +98,16 @@ public class Tests {
 		assertEquals("dfs subgraph nodes (head = 1): ",11,dfs.getNodes().size());
 		assertEquals("bfs subgraph nodes (head = 1): ",11,bfs.getNodes().size());
 		
-		System.out.println("\nundirected");
-		System.out.println("printing dfs nodes");
-		graph.dfs(graph, nodes.get(1), new work());
-		System.out.println("printing bfs nodes");
-		graph.bfs(graph, nodes.get(0), new work());
+		
+		dfs = graph.dfs(graph, nodes.get(1), new work());
+		for(int i=5;i<16;++i){
+			assertTrue("dfs contains node of value "+i+": ",dfs.findMatch(new Node<Integer>(i))!=null);
+		}
+		bfs = graph.bfs(graph, nodes.get(0), new work());
+		for(int i=5;i<16;++i){
+			assertTrue("bfs contains node of value "+i+": ",bfs.findMatch(new Node<Integer>(i))!=null);
+		}
+
 	}
 
 }
