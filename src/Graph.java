@@ -10,28 +10,35 @@ public interface Graph {
 	public void addEdge(Node<?> from, Node<?> to);
 	public void removeEdge(Node<?> from, Node<?> to);
 	public Node<?> findMatch(Node<?> n);
-	public default  Graph dfs(Graph g, Node<?> head){
+	public default Graph dfs(Graph g, Node<?> head){
+		return this.dfs(g, head, new noWork());	//call dfs with noWork
+	}
+	public default  Graph dfs(Graph g, Node<?> head, Work work){
 		Graph temp;
 		if(g.getClass().toString().contains("DirectedGraph")){
 			temp = new DirectedGraph();
 		}else{
 			temp = new UndirectedGraph();
 		}
-		 
+		
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
+		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>(); 		//tracks used nodes to apply work in appropriate order
 		Node<?> current;
-		st.push(head);			//push head to stack
+		st.push(head);											//push head to stack
+		workSt.push(head.copy());								//push copy to workstack
 		do{	
-			current = st.pop();								//get new current
-			Node<?> currentCopy = current.copy();			//create a single copy so we don't get unconnected nodes in graph
-			for(Node<?> n : g.neighbors(current)){			//go through all of currents connected nodes
-				if(currentCopy.isUsed()){					//keep from adding nodes as both currentCopy and n 
-					currentCopy = temp.findMatch(currentCopy); //replace current copy with copy already in graph
+			current = st.pop();									//get new current
+			Node<?> currentCopy = work.doWork(workSt.pop());	//create a single copy so we don't get unconnected nodes in graph
+			for(Node<?> n : g.neighbors(current)){				//go through all of currents connected nodes
+				if(current.isUsed()){							//keep from adding nodes as both currentCopy and n 
+					currentCopy = temp.findMatch(currentCopy); 	//replace current copy with copy already in graph
 				}
-				current.setUsed(true);						//mark as used
-				if(!n.isUsed()){							//if we've not used it yet
-					temp.addEdge(currentCopy, n.copy());	//add it to the return graph
-					st.push(n);								//add it to queue
+				current.setUsed(true);							//mark as used
+				if(!n.isUsed()){								//if we've not used it yet
+					st.push(n);									//add it to queue
+					workSt.push(n.copy());
+					temp.addEdge(currentCopy, workSt.getFirst());//add it to the return graph
+					
 					n.setUsed(true);
 					
 				}
@@ -43,6 +50,9 @@ public interface Graph {
 		return temp;
 	}
 	public default Graph bfs(Graph g, Node<?> head){
+		return this.bfs(g, head, new noWork());
+	}
+	public default Graph bfs(Graph g, Node<?> head, Work work){
 		Graph temp;
 		if(g.getClass().toString().contains("DirectedGraph")){
 			temp = new DirectedGraph();
@@ -51,28 +61,41 @@ public interface Graph {
 		}
 		
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
+		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>(); 		//tracks used nodes to apply work in appropriate order
 		Node<?> current;
-		st.push(head);
-		do{
-			current = st.removeLast();
-			Node<?> currentCopy = current.copy();
-			for(Node<?> n : g.neighbors(current)){
-				if(currentCopy.isUsed()){					
-					currentCopy = temp.findMatch(currentCopy); 
+		st.push(head);											//push head to stack
+		workSt.push(head.copy());								//push copy to workstack
+		do{	
+			current = st.removeLast();									//get new current
+			Node<?> currentCopy = work.doWork(workSt.removeLast());	//create a single copy so we don't get unconnected nodes in graph
+			for(Node<?> n : g.neighbors(current)){				//go through all of currents connected nodes
+				if(current.isUsed()){							//keep from adding nodes as both currentCopy and n 
+					currentCopy = temp.findMatch(currentCopy); 	//replace current copy with copy already in graph
 				}
-				current.setUsed(true);
-				if(!n.isUsed()){
-					temp.addEdge(currentCopy, n.copy());
-					st.push(n);
+				current.setUsed(true);							//mark as used
+				if(!n.isUsed()){								//if we've not used it yet
+					st.push(n);									//add it to queue
+					workSt.push(n.copy());
+					temp.addEdge(currentCopy, workSt.getFirst());//add it to the return graph
+					
 					n.setUsed(true);
+					
 				}
-			}
+			}	
 		}while(!st.isEmpty());
-		for(Node<?> n : g.getNodes()){
+		for(Node<?> n : g.getNodes()){	//reset all used values
 			n.setUsed(false);
 		}
 		return temp;
 	}
 	public Vector<Node<?>> getNodes();
 	public String toString();
+	
+	 class noWork implements Work{ //private inner class to facilitate overload of dfs and bfs
+		@Override
+		public Node<?> doWork(Node<?> n) {
+			return n;
+		}
+		
+	}
 }

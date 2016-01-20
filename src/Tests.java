@@ -76,7 +76,7 @@ public class Tests {
 		assertEquals("dfs subgraph nodes (head = 0): ",11,dfs.getNodes().size());
 		assertEquals("bfs subgraph nodes (head = 0): ",11,bfs.getNodes().size());
 		
-		dfs = graph.dfs(graph, nodes.get(1)); 
+		dfs = graph.dfs(graph, nodes.get(1));
 		bfs = graph.bfs(graph, nodes.get(1));
 		
 		assertEquals("dfs subgraph nodes (head = 1): ",11,dfs.getNodes().size());
