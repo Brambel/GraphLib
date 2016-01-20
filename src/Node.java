@@ -6,8 +6,8 @@ public class Node<Type> {
 	
 	public Node(Type value){
 		this.value = value;
-		used = false;
-		}
+		this.used = false;
+	}
 	
 	public Type getValue() {
 		return value;
@@ -15,6 +15,7 @@ public class Node<Type> {
 	public void setValue(Type value) {
 		this.value = value;
 	}
+	
 	public Boolean isUsed(){
 		return used;
 	}
@@ -27,6 +28,7 @@ public class Node<Type> {
 		temp.setUsed(used);
 		return temp;
 	}
+	
 	public String toString(){
 		return "Value: "+value;
 	}

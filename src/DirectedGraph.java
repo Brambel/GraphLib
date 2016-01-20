@@ -11,7 +11,6 @@ public class DirectedGraph implements Graph {
 		graph = new HashMap<>();
 	}
 	
-
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){
@@ -53,7 +52,7 @@ public class DirectedGraph implements Graph {
 
 	public Vector<Node<?>> getNodes() {
 		return new Vector<Node<?>>(graph.keySet());
-	};
+	}
 	
 	public String toString(){
 		String temp="";
@@ -63,8 +62,6 @@ public class DirectedGraph implements Graph {
 		return temp;
 	}
 
-
-	@Override
 	public Node<?> findMatch(Node<?> n) {
 		for(Node<?> x : graph.keySet()){
 			if(x.equal(n)){

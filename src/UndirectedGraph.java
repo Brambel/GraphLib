@@ -7,7 +7,7 @@ public class UndirectedGraph implements Graph {
 	List<List<data>> graph = new Vector<>();
 	List<Node<?>> nodes = new Vector<>();
 	
-	//private inner class to hold an int so we don't have to use the immutable Integer
+	//class to hold an int so we don't have to use the immutable Integer
 	private class data{
 		public int val;
 		data(int x){
@@ -35,7 +35,6 @@ public class UndirectedGraph implements Graph {
 		return temp;
 	}
 
-
 	public void addEdge(Node<?> from, Node<?> to) {
 		if(!nodes.contains(from)){
 			nodes.add(from);
@@ -53,14 +52,14 @@ public class UndirectedGraph implements Graph {
 	}
 
 	private void expand() {
-		int size = nodes.size()-1;//size of graph edges before node was added
+		int size = nodes.size()-1;			//size of graph edges before node was added
 		List<data> temp = new Vector<>();
 		for(int i=0;i<size;++i){
 			temp.add(new data(0));
 		}
-		graph.add(temp); //this tacks the new vector to the end already full of zeros
+		graph.add(temp); 					//this tacks the new vector to the end already full of zeros
 		for(List<data> n : graph){
-			n.add(new data(0));//add a zero to the end of each list in the graph
+			n.add(new data(0));				//add a zero to the end of each list in the graph
 		}
 	}
 	
@@ -73,10 +72,10 @@ public class UndirectedGraph implements Graph {
 		}
 	}
 
-
 	public Vector<Node<?>> getNodes() {	
 		return (Vector<Node<?>>) nodes;
 	}
+	
 	public String toString(){
 		String temp="";
 		for(Node<?> n : nodes){
@@ -85,7 +84,6 @@ public class UndirectedGraph implements Graph {
 		return temp;
 	}
 
-	@Override
 	public Node<?> findMatch(Node<?> n) {
 		for(Node<?> x : nodes){
 			if(x.equal(n)){

@@ -5,15 +5,15 @@ import java.util.Vector;
 
 public interface Graph {
 	
-	public boolean adjacent(Node<?> from, Node<?> to);
-	public Vector<Node<?>> neighbors(Node<?> n);
-	public void addEdge(Node<?> from, Node<?> to);
-	public void removeEdge(Node<?> from, Node<?> to);
-	public Node<?> findMatch(Node<?> n);
-	public default Graph dfs(Graph g, Node<?> head){
+	public boolean adjacent(Node<?> from, Node<?> to);				//is there a connection from -> to
+	public Vector<Node<?>> neighbors(Node<?> n);					//list of all nodes from ->
+	public void addEdge(Node<?> from, Node<?> to);					//add from -> to 
+	public void removeEdge(Node<?> from, Node<?> to);				//remove from -> to
+	public Node<?> findMatch(Node<?> n);							//does the graph contain a node with n.value? returns match or null
+	public default Graph dfs(Graph g, Node<?> head){				//dfs with no modification or replacement of nodes
 		return this.dfs(g, head, new noWork());	//call dfs with noWork
 	}
-	public default  Graph dfs(Graph g, Node<?> head, Work work){
+	public default  Graph dfs(Graph g, Node<?> head, Work work){	//bfs that allows user to define work to be done
 		Graph temp;
 		if(g.getClass().toString().contains("DirectedGraph")){
 			temp = new DirectedGraph();
@@ -51,10 +51,10 @@ public interface Graph {
 		}
 		return temp;
 	}
-	public default Graph bfs(Graph g, Node<?> head){
+	public default Graph bfs(Graph g, Node<?> head){				//bfs with no modification or replacement of nodes
 		return this.bfs(g, head, new noWork());
 	}
-	public default Graph bfs(Graph g, Node<?> head, Work work){
+	public default Graph bfs(Graph g, Node<?> head, Work work){		//dfs that allows user to define work to be done
 		Graph temp;
 		if(g.getClass().toString().contains("DirectedGraph")){
 			temp = new DirectedGraph();
@@ -91,9 +91,9 @@ public interface Graph {
 		}
 		return temp;
 	}
-	public Vector<Node<?>> getNodes();
-	public String toString();
+	public Vector<Node<?>> getNodes();								//returns a vector of all nodes in graph
+	public String toString();										//prints graph showing each nodes neighbors
 	
-	 class noWork implements Work{ //private inner class to facilitate overload of dfs and bfs		
+	 class noWork implements Work{ 									//facilitate overload of dfs and bfs		
 	}
 }
