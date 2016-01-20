@@ -4,7 +4,15 @@ import org.junit.Test;
 
 public class Tests {
 
-	
+	private class work implements Work{
+
+		@Override
+		public Node<?> doWork(Node<?> n) {
+			System.out.println(n.getValue());
+			return n;
+		}
+		
+	}
 	
 	@Test
 	public void directedTest() {
@@ -43,6 +51,13 @@ public class Tests {
 		
 		assertEquals("dfs subgraph nodes (head = 1): ",0,dfs.getNodes().size());
 		assertEquals("bfs subgraph nodes (head = 1): ",0,bfs.getNodes().size());
+		
+		System.out.println("\ndirected");
+		System.out.println("printing dfs nodes");
+		graph.dfs(graph, nodes.get(1), new work());
+		System.out.println("printing bfs nodes");
+		graph.bfs(graph, nodes.get(0), new work());
+		
 	}
 
 	@Test
@@ -81,6 +96,12 @@ public class Tests {
 		
 		assertEquals("dfs subgraph nodes (head = 1): ",11,dfs.getNodes().size());
 		assertEquals("bfs subgraph nodes (head = 1): ",11,bfs.getNodes().size());
+		
+		System.out.println("\nundirected");
+		System.out.println("printing dfs nodes");
+		graph.dfs(graph, nodes.get(1), new work());
+		System.out.println("printing bfs nodes");
+		graph.bfs(graph, nodes.get(0), new work());
 	}
 
 }
