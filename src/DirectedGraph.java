@@ -61,16 +61,15 @@ public class DirectedGraph implements Graph {
 		Node<?> current;
 		st.push(head);			//push head to stack
 		do{	
-			current = st.pop();
-			Node<?> currentCopy = current.copy();
+			current = st.pop();								//get new current
+			Node<?> currentCopy = current.copy();			//create a single copy so we don't get unconnected nodes in graph
 			for(Node<?> n : g.neighbors(current)){			//go through all of currents connected nodes
 				if(!n.isUsed()){							//if we've not used it yet
 					temp.addEdge(currentCopy, n.copy());	//add it to the return graph
 					st.push(n);								//add it to queue
 					current.setUsed(true);					//mark as used
 				}
-			}
-			current = st.pop();		//get new current
+			}	
 		}while(!st.isEmpty());
 		for(Node<?> n : g.getNodes()){	//reset all used values
 			n.setUsed(false);
@@ -114,9 +113,10 @@ public class DirectedGraph implements Graph {
 		st.push(head);
 		do{
 			current = st.removeLast();
+			Node<?> currentCopy = current.copy();
 			for(Node<?> n : g.neighbors(current)){
 				if(!n.isUsed()){
-					temp.addEdge(current.copy(), n.copy());
+					temp.addEdge(currentCopy, n.copy());
 					st.push(n);
 					current.setUsed(true);
 				}
