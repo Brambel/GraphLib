@@ -1,4 +1,6 @@
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 import java.util.Vector;
 
@@ -73,15 +75,6 @@ public class UndirectedGraph implements Graph {
 		}
 	}
 
-	public Graph dfs(Graph g, Node<?> head) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Graph bfs(Graph g, Node<?> head) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public Vector<Node<?>> getNodes() {	
 		return (Vector<Node<?>>) nodes;
@@ -92,6 +85,16 @@ public class UndirectedGraph implements Graph {
 			temp+=n.toString()+"\r";
 		}
 		return temp;
+	}
+
+	@Override
+	public Node<?> findMatch(Node<?> n) {
+		for(Node<?> x : nodes){
+			if(x.equal(n)){
+				return x;
+			}
+		}
+		return null;
 	}
 
 }

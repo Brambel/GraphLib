@@ -7,15 +7,7 @@ public class Main {
 		Vector<Node<?>> nodes = new Vector<>();
 		nodes.add(new Node<Integer>(10));
 		Graph graph = new DirectedGraph();
-		for(int i=0;i<10;++i){
-			nodes.add(new Node<Integer>(i));
-			graph.addEdge(nodes.get(nodes.size()-1),nodes.get(0));
-		}
-		
-		System.out.println(graph.toString());
-		
-		System.out.println("sub graph dfs(node 0)\n"+graph.dfs(graph, nodes.get(1)));
-		System.out.println("sub graph bfs(node 0)\n"+graph.bfs(graph, nodes.get(1)));
+		System.out.println(graph.getClass());
 		
 		Vector<Node<?>> nodes2 = new Vector<>();
 		Node<Integer> nexus = new Node<>(10);

@@ -31,5 +31,9 @@ public class Node<Type> {
 		return "Value: "+value+", Used: "+used;
 	}
 	
+	public boolean equal(Node<?> n){
+		return n.getValue().equals(value);
+	}
+	
 	
 }

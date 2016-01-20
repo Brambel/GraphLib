@@ -55,27 +55,7 @@ public class DirectedGraph implements Graph {
 	}
 
 
-	public Graph dfs(Graph g, Node<?> head) {
-		Graph temp = new DirectedGraph();
-		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Node<?> current;
-		st.push(head);			//push head to stack
-		do{	
-			current = st.pop();								//get new current
-			Node<?> currentCopy = current.copy();			//create a single copy so we don't get unconnected nodes in graph
-			for(Node<?> n : g.neighbors(current)){			//go through all of currents connected nodes
-				if(!n.isUsed()){							//if we've not used it yet
-					temp.addEdge(currentCopy, n.copy());	//add it to the return graph
-					st.push(n);								//add it to queue
-					current.setUsed(true);					//mark as used
-				}
-			}	
-		}while(!st.isEmpty());
-		for(Node<?> n : g.getNodes()){	//reset all used values
-			n.setUsed(false);
-		}
-		return temp;
-	}
+	
 	
 	public Graph dfs(Graph g, Node<?> head, Work work) {
 		Graph temp = new DirectedGraph();
@@ -105,28 +85,6 @@ public class DirectedGraph implements Graph {
 		return temp;
 	}
 
-
-	public Graph bfs(Graph g, Node<?> head) {
-		Graph temp = new DirectedGraph();
-		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Node<?> current;
-		st.push(head);
-		do{
-			current = st.removeLast();
-			Node<?> currentCopy = current.copy();
-			for(Node<?> n : g.neighbors(current)){
-				if(!n.isUsed()){
-					temp.addEdge(currentCopy, n.copy());
-					st.push(n);
-					current.setUsed(true);
-				}
-			}
-		}while(!st.isEmpty());
-		for(Node<?> n : g.getNodes()){
-			n.setUsed(false);
-		}
-		return temp;
-	}
 	
 	public Graph bfs(Graph g, Node<?> head, Work work) {
 		Graph temp = new DirectedGraph();
@@ -166,6 +124,17 @@ public class DirectedGraph implements Graph {
 			temp+=n.toString()+"\r";
 		}
 		return temp;
+	}
+
+
+	@Override
+	public Node<?> findMatch(Node<?> n) {
+		for(Node<?> x : graph.keySet()){
+			if(x.equal(n)){
+				return x;
+			}
+		}
+		return null;
 	}
 
 }
