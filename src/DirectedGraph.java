@@ -44,7 +44,6 @@ public class DirectedGraph implements Graph {
 
 	}
 
-
 	public void removeEdge(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){
@@ -54,66 +53,6 @@ public class DirectedGraph implements Graph {
 
 	}
 
-
-	
-	
-	public Graph dfs(Graph g, Node<?> head, Work work) {
-		Graph temp = new DirectedGraph();
-		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>();
-		Node<?> current;
-		Node<?> currentCopy;
-		st.push(head);
-		workSt.push(head.copy());
-		do{
-			current=st.pop();
-			currentCopy = work.doWork(workSt.pop());
-			
-			for(Node<?> n : g.neighbors(current)){
-				if(!n.isUsed()){
-					workSt.push(n.copy());
-					temp.addEdge(currentCopy, workSt.getFirst());
-					st.push(n);
-					current.setUsed(true);
-				}
-			}
-		}while(!st.isEmpty());
-		
-		for(Node<?> n : g.getNodes()){
-			n.setUsed(false);
-		}
-		return temp;
-	}
-
-	
-	public Graph bfs(Graph g, Node<?> head, Work work) {
-		Graph temp = new DirectedGraph();
-		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>();
-		Node<?> current;
-		Node<?> currentCopy;
-		st.push(head);
-		workSt.push(head.copy());
-		do{
-			current=st.removeLast();
-			currentCopy = work.doWork(workSt.removeLast());
-			
-			for(Node<?> n : g.neighbors(current)){
-				if(!n.isUsed()){
-					workSt.push(n.copy());
-					temp.addEdge(currentCopy, workSt.getFirst());
-					st.push(n);
-					current.setUsed(true);
-				}
-			}
-		}while(!st.isEmpty());
-		
-		for(Node<?> n : g.getNodes()){
-			n.setUsed(false);
-		}
-		return temp;
-	}
-
 	public Vector<Node<?>> getNodes() {
 		return new Vector<Node<?>>(graph.keySet());
 	};
@@ -121,7 +60,7 @@ public class DirectedGraph implements Graph {
 	public String toString(){
 		String temp="";
 		for(Node<?> n : graph.keySet()){
-			temp+=n.toString()+"\r";
+			temp+=n.getValue()+" -> "+this.neighbors(n).toString()+"\n";
 		}
 		return temp;
 	}

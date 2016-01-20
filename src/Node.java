@@ -28,7 +28,7 @@ public class Node<Type> {
 		return temp;
 	}
 	public String toString(){
-		return "Value: "+value+", Used: "+used;
+		return "Value: "+value;
 	}
 	
 	public boolean equal(Node<?> n){

@@ -28,17 +28,19 @@ public interface Graph {
 		workSt.push(head.copy());								//push copy to workstack
 		do{	
 			current = st.pop();									//get new current
-			Node<?> currentCopy = work.doWork(workSt.pop());	//create a single copy so we don't get unconnected nodes in graph
+			Node<?> currentCopy = workSt.pop();					//create a single copy so we don't get unconnected nodes in graph
 			for(Node<?> n : g.neighbors(current)){				//go through all of currents connected nodes
 				if(current.isUsed()){							//keep from adding nodes as both currentCopy and n 
 					currentCopy = temp.findMatch(currentCopy); 	//replace current copy with copy already in graph
+				}else{
+					currentCopy = work.doWork(currentCopy);		//otherwise do the work
 				}
-				current.setUsed(true);							//mark as used
+				
 				if(!n.isUsed()){								//if we've not used it yet
+					current.setUsed(true);							//mark as used
 					st.push(n);									//add it to queue
 					workSt.push(n.copy());
 					temp.addEdge(currentCopy, workSt.getFirst());//add it to the return graph
-					
 					n.setUsed(true);
 					
 				}
@@ -61,23 +63,24 @@ public interface Graph {
 		}
 		
 		Deque<Node<?>> st = new ArrayDeque<Node<?>>();
-		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>(); 		//tracks used nodes to apply work in appropriate order
+		Deque<Node<?>> workSt = new ArrayDeque<Node<?>>(); 	
 		Node<?> current;
-		st.push(head);											//push head to stack
-		workSt.push(head.copy());								//push copy to workstack
+		st.push(head);									
+		workSt.push(head.copy());					
 		do{	
-			current = st.removeLast();									//get new current
-			Node<?> currentCopy = work.doWork(workSt.removeLast());	//create a single copy so we don't get unconnected nodes in graph
-			for(Node<?> n : g.neighbors(current)){				//go through all of currents connected nodes
-				if(current.isUsed()){							//keep from adding nodes as both currentCopy and n 
-					currentCopy = temp.findMatch(currentCopy); 	//replace current copy with copy already in graph
-				}
-				current.setUsed(true);							//mark as used
-				if(!n.isUsed()){								//if we've not used it yet
-					st.push(n);									//add it to queue
+			current = st.removeLast();							
+			Node<?> currentCopy = workSt.removeLast();
+			for(Node<?> n : g.neighbors(current)){				
+				if(current.isUsed()){							
+					currentCopy = temp.findMatch(currentCopy); 	
+				}else{
+					currentCopy=work.doWork(currentCopy);
+				}							
+				if(!n.isUsed()){
+					current.setUsed(true);
+					st.push(n);								
 					workSt.push(n.copy());
-					temp.addEdge(currentCopy, workSt.getFirst());//add it to the return graph
-					
+					temp.addEdge(currentCopy, workSt.getFirst());
 					n.setUsed(true);
 					
 				}
@@ -92,7 +95,7 @@ public interface Graph {
 	public String toString();
 	
 	 class noWork implements Work{ //private inner class to facilitate overload of dfs and bfs
-		@Override
+		 
 		public Node<?> doWork(Node<?> n) {
 			return n;
 		}

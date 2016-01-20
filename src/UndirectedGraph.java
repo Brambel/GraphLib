@@ -82,7 +82,7 @@ public class UndirectedGraph implements Graph {
 	public String toString(){
 		String temp="";
 		for(Node<?> n : nodes){
-			temp+=n.toString()+"\r";
+			temp+=n.getValue()+" -> "+this.neighbors(n).toString()+"\n";
 		}
 		return temp;
 	}
