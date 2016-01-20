@@ -57,8 +57,8 @@ public interface Graph {
 			current = st.removeLast();
 			Node<?> currentCopy = current.copy();
 			for(Node<?> n : g.neighbors(current)){
-				if(currentCopy.isUsed()){					//keep from adding nodes as both currentCopy and n 
-					currentCopy = temp.findMatch(currentCopy); //replace current copy with copy already in graph
+				if(currentCopy.isUsed()){					
+					currentCopy = temp.findMatch(currentCopy); 
 				}
 				current.setUsed(true);
 				if(!n.isUsed()){
