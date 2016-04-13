@@ -1,4 +1,6 @@
+package graph;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,13 +19,17 @@ public class UndirectedGraph implements Graph {
 	
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(nodes.contains(from)&&nodes.contains(to)){
-			if(graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val==1){
+			if(graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val>0){
 				return true;
 			}
 		}
 		return false;
 	}
-
+	
+	public int getWeight(Node<?> from, Node<?> to){
+		return graph.get(nodes.indexOf(from)).get(nodes.indexOf(to)).val;
+	}
+	
 	public Vector<Node<?>> neighbors(Node<?> n) {
 		int index = nodes.indexOf(n);
 		Vector<Node<?>> temp = new Vector<>();
@@ -36,6 +42,10 @@ public class UndirectedGraph implements Graph {
 	}
 
 	public void addEdge(Node<?> from, Node<?> to) {
+		addEdge(from, to, 1);
+	}
+	
+	public void addEdge(Node<?>from, Node<?> to, int weight){
 		if(!nodes.contains(from)){
 			nodes.add(from);
 			this.expand();
@@ -46,9 +56,8 @@ public class UndirectedGraph implements Graph {
 		}
 		int a = nodes.indexOf(to);
 		int b = nodes.indexOf(from);
-		
-		graph.get(a).get(b).val=1;
-		graph.get(b).get(a).val=1;
+		graph.get(a).get(b).val=weight;
+		graph.get(b).get(a).val=weight;
 	}
 
 	private void expand() {
@@ -92,5 +101,27 @@ public class UndirectedGraph implements Graph {
 		}
 		return null;
 	}
+	
+	 public boolean hasCycle(int start) {
+		 List<Boolean> vertexList = new ArrayList<>();
+		 for(Boolean b : vertexList){
+			 b = false;
+		 }
+		 
+		 return cycle(start, vertexList);
+	 }
+		
+	 
+	 private boolean cycle(int start, List<Boolean> vertexList){
+		 int max= nodes.size()-1;
+		 vertexList.set(start, true);
+		 
+		    for (int j = 0; j < max; j++) {  
+		        if (graph.get(start).get(j).val > 1  &&  (vertexList.get(j)  ||  hasCycle(j)))
+		            return true;
+		    }
+		    return false;
+	    }
+	 
 
 }

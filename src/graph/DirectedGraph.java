@@ -1,3 +1,4 @@
+package graph;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -10,7 +11,9 @@ public class DirectedGraph implements Graph {
 	public DirectedGraph(){
 		graph = new HashMap<>();
 	}
-	
+	public int getWeight(Node<?> from, Node<?> to){
+		return 0;//function does nothing atm
+	}
 	public boolean adjacent(Node<?> from, Node<?> to) {
 		if(graph.containsKey(from)){
 			if(graph.get(from).contains(to)){

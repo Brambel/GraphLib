@@ -1,3 +1,4 @@
+package graph;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Vector;
@@ -7,6 +8,7 @@ public interface Graph {
 	
 	public boolean adjacent(Node<?> from, Node<?> to);				//is there a connection from -> to
 	public Vector<Node<?>> neighbors(Node<?> n);					//list of all nodes from ->
+	public int getWeight(Node<?> from, Node<?> to);					//returns weight of path from -> to
 	public void addEdge(Node<?> from, Node<?> to);					//add from -> to 
 	public void removeEdge(Node<?> from, Node<?> to);				//remove from -> to
 	public Node<?> findMatch(Node<?> n);							//does the graph contain a node with n.value? returns match or null
@@ -91,9 +93,12 @@ public interface Graph {
 		}
 		return temp;
 	}
+	
 	public Vector<Node<?>> getNodes();								//returns a vector of all nodes in graph
 	public String toString();										//prints graph showing each nodes neighbors
 	
 	 class noWork implements Work{ 									//facilitate overload of dfs and bfs		
 	}
+
+	
 }
